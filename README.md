@@ -1,2 +1,2 @@
-# Termux-design-tutorial
+# termux-design-tutorial
 آموزش ساخت تم ترموکس
