@@ -3,53 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آموزش Termux</title>
+    <title>آموزش ساخت تم رنگین‌کمانی Termux</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            background: #1e1e1e;
+            background: #0d1b2a;
             color: #00ff00;
             font-family: "Courier New", monospace;
+            line-height: 1.8;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 20px;
+        }
+        
+        /* هدر و نویگیشن */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px 0;
+            border-bottom: 3px solid #00ff00;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #00ff00;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: #00ff00;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background: #00ff00;
+            color: #000;
+        }
+        
+        /* بخش هیرو */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            margin: 30px 0;
+            border-radius: 10px;
+            border: 2px solid #00ff00;
+        }
+        
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00ff00;
+        }
+        
+        /* بخش‌های اصلی */
+        .section {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            margin: 30px 0;
+            border-radius: 10px;
+            border: 1px solid #00ff00;
+        }
+        
+        .section h2 {
+            color: #00ff00;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #00ff00;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-right: 4px solid #00ff00;
+        }
+        
+        .content-box h4 {
+            color: #00ff00;
+            margin-bottom: 15px;
+        }
+        
+        .content-box p {
+            color: #aaffaa;
+            margin-bottom: 15px;
             line-height: 1.6;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        
+        .content-box ul, .content-box ol {
+            color: #aaffaa;
+            margin: 15px 0;
+            padding-right: 20px;
         }
-        header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid #00ff00;
-            margin-bottom: 30px;
-        }
-        h1 {
-            color: #00ff00;
+        
+        .content-box li {
             margin-bottom: 10px;
         }
-        .terminal {
+        
+        /* کدهای ترمینال */
+        .code-block {
             background: #000;
+            border: 1px solid #00ff00;
+            border-radius: 8px;
             padding: 20px;
+            margin: 15px 0;
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        .rainbow-text {
+            background: linear-gradient(45deg, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* ترمینال دمو */
+        .terminal-demo {
+            background: #000;
+            border: 2px solid #00ff00;
             border-radius: 10px;
+            padding: 20px;
             margin: 20px 0;
+        }
+        
+        .terminal-header {
+            background: #00ff00;
+            color: #000;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            margin: -20px -20px 15px -20px;
+        }
+        
+        .terminal-content {
+            color: #00ff00;
+            line-height: 1.6;
+            font-family: "Courier New", monospace;
+        }
+        
+        /* نکات مهم */
+        .important-note {
+            background: rgba(255, 255, 0, 0.1);
+            border: 2px solid #ffff00;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .important-note h4 {
+            color: #ffff00;
+            margin-bottom: 10px;
+        }
+        
+        /* پرسش‌های متداول */
+        .faq-item {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .faq-question {
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .faq-answer {
+            color: #aaffaa;
+            line-height: 1.6;
+        }
+        
+        /* فوتر */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 3px solid #00ff00;
+            margin-top: 50px;
+        }
+        
+        .footer-content p {
+            color: #aaffaa;
+            margin: 10px 0;
+        }
+        
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>آموزش Termux</h1>
-            <p>سایت طراحی شده با Termux</p>
-        </header>
-        
-        <div class="terminal">
-            <p>🎉 تبریک! سایت شما با موفقیت راه‌اندازی شد.</p>
-            <p>📝 این یک شروع ساده است.</p>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Termux:~$</div>
+                <nav>
+                    <ul>
+                        <li><a href="#intro">معرفی</a></li>
+                        <li><a href="#prerequisites">پیش‌نیازها</a></li>
+                        <li><a href="#tutorial">آموزش</a></li>
+                        <li><a href="#rainbow">رنگین‌کمانی</a></li>
+                        <li><a href="#tips">نکات مهم</a></li>
+                        <li><a href="#faq">سوالات</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        
-        <footer style="text-align: center; margin-top: 50px; color: #888;">
-            <p>ساخته شده با ❤️ در Termux</p>
-        </footer>
+    </header>
+
+    <div class="container">
+        <!-- بخش معرفی -->
+        <section class="hero" id="intro">
+            <h1>آموزش ساخت تم رنگین‌کمانی در Termux</h1>
+            <p>یاد بگیر چطور ترمینال Termux رو به یه نمایشگر رنگین‌کمانی تبدیل کنی!</p>
+        </section>
+
+        <!-- بخش پیش‌نیازها -->
+        <section class="section" id="prerequisites">
+            <h2>📋 پیش‌نیازها و نصب</h2>
+            
+            <div class="content-box">
+                <h4>نصب پکیج‌های لازم</h4>
+                <p>اول این دستورات رو اجرا کن:</p>
+                <div class="code-block">
+                    <code>
+pkg update && pkg upgrade<br>
+pkg install termux-tools<br>
+pkg install nano
+                    </code>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش آموزش -->
+        <section class="section" id="tutorial">
+            <h2>🛠️ آموزش قدم به قدم</h2>
+            
+            <div class="content-box">
+                <h4>قدم 1: ساخت پوشه تنظیمات</h4>
+                <p>اول مطمئن شو پوشه تنظیمات Termux وجود داره:</p>
+                <div class="code-block">
+                    <code>
+mkdir -p ~/.termux
+                    </code>
+                </div>
+            </div>
+            
+            <div class="content-box">
+                <h4>قدم 2: ساخت فایل رنگ‌ها</h4>
+                <p>فایل colors.properties رو ایجاد کن:</p>
+                <div class="code-block">
+                    <code>
+nano ~/.termux/colors.properties
+                    </code>
+                </div>
+                <p>محتوای زیر رو کپی کن:</p>
+                <div class="code-block">
+                    <code>
+# رنگ‌های پیش‌فرض ترمینال<br>
+background=#000000<br>
+foreground=#00ff00<br>
+                    </code>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش رنگین‌کمانی -->
+        <section class="section" id="rainbow">
+            <h2>🌈 ساخت متن رنگین‌کمانی</h2>
+            
+            <div class="content-box">
+                <h4>نمایش Termux با رنگین‌کمان</h4>
+                <p>این اسکریپت رو اجرا کن:</p>
+                <div class="code-block">
+                    <code>
+#!/bin/bash<br>
+echo -e "\033[31mT\033[33me\033[32mr\033[36mm\033[34mu\033[35mx\033[0m"<br>
+date "+%H:%M %Y-%m-%d"
+                    </code>
+                </div>
+            </div>
+            
+            <div class="terminal-demo">
+                <div class="terminal-header">خروجی نهایی</div>
+                <div class="terminal-content">
+                    <span class="rainbow-text">Termux</span><br>
+                    14:30 2024-11-28
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش نکات مهم -->
+        <section class="section" id="tips">
+            <h2>💡 نکات مهم</h2>
+            
+            <div class="important-note">
+                <h4>⚠️ توجه!</h4>
+                <p>• فقط Termux رو از F-Droid دانلود کن</p>
+                <p>• بعد از هر تغییر، Termux رو restart کن</p>
+                <p>• از فایل‌های پشتیبان بگیر</p>
+            </div>
+            
+            <div class="content-box">
+                <h4>نکات فنی</h4>
+                <ul>
+                    <li>فایل‌های تنظیمات حساس به حروف بزرگ و کوچک هستند</li>
+                    <li>برای اعمال تغییرات نیاز به restart داری</li>
+                    <li>می‌تونی از فونت‌های مختلف استفاده کنی</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- بخش سوالات متداول -->
+        <section class="section" id="faq">
+            <h2>❓ پرسش‌های متداول</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">آیا این آموزش روی همه دستگاه‌ها کار می‌کنه؟</div>
+                <div class="faq-answer">بله، این آموزش روی تمام دستگاه‌های اندرویدی که Termux رو از F-Droid نصب کردن کار می‌کنه.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">چطور تغییرات رو برگردونم؟</div>
+                <div class="faq-answer">فایل‌های colors.properties و termux.properties رو از پوشه .termux پاک کن و Termux رو restart کن.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">آیا نیاز به root دارم؟</div>
+                <div class="faq-answer">خیر، این آموزش بدون نیاز به root کار می‌کنه.</div>
+            </div>
+        </section>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>ساخته شده با ❤️ برای جامعه Termux</p>
+            <p>آموزش کامل ساخت تم رنگین‌کمانی</p>
+            <p>© 2024 - تمام حقوق محفوظ است</p>
+        </div>
+    </footer>
+
+    <script>
+        // اسکرول نرم برای لینک‌ها
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // باز و بسته کردن سوالات متداول
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    </script>
 </body>
-</html>
+    </html>
